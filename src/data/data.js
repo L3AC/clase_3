@@ -18,6 +18,26 @@ const Data = [
       id: '4',
       title: 'Tamales de Elote',
       src: require('../img/tamales-comida.jpg'),
+    },
+    {
+      id: '5',
+      title: 'Tamales de Elote',
+      src: require('../img/tamales-comida.jpg'),
+    },
+    {
+      id: '6',
+      title: 'Tamales de Elote',
+      src: require('../img/tamales-comida.jpg'),
+    },
+    {
+      id: '7',
+      title: 'Tamales de Elote',
+      src: require('../img/tamales-comida.jpg'),
+    },
+    {
+      id: '8',
+      title: 'Tamales de Elote',
+      src: require('../img/tamales-comida.jpg'),
     }
   ];
 

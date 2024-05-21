@@ -1,5 +1,5 @@
 import React from 'react';
-import { View, TouchableOpacity, StyleSheet, Text, FlatList, Image } from 'react-native';
+import { View, Text, FlatList, Image, StyleSheet, ScrollView } from 'react-native';
 import { StatusBar } from 'expo-status-bar';
 import data from '../data/data';
 import Boton from '../components/Boton';
@@ -12,46 +12,57 @@ const Pantalla1 = ({ navigation }) => {
     };
 
     return (
-        <View style={styles.container}>
-            <Text style={styles.title}>Mostrando Informacion horizontal</Text>
-            <View style={styles.flatListContainer}>
-                <FlatList
-                    data={informacion}
-                    horizontal={true}
-                    renderItem={({ item }) => (
-                        <View style={styles.cardContainer}>
-                            <Image source={item.src} style={styles.image} />
-                            <Text style={styles.title}>{item.title}</Text>
-                        </View>
-                    )}
-                    keyExtractor={(item) => item.id}
+        <ScrollView contentContainerStyle={styles.scrollContainer}>
+            <View style={styles.container}>
+                <Text style={styles.title}>Mostrando Información en cuadrícula</Text>
+                <View style={styles.flatListContainer}>
+                    <FlatList
+                        data={informacion}
+                        numColumns={2} // Número de columnas fijo
+                        renderItem={({ item }) => (
+                            <View style={styles.cardContainer}>
+                                <Image source={item.src} style={styles.image} />
+                                <Text style={styles.itemTitle}>{item.title}</Text>
+                            </View>
+                        )}
+                        keyExtractor={(item) => item.id}
+                        key={2} // Cambia este valor si decides cambiar numColumns dinámicamente
+                        contentContainerStyle={styles.flatListContentContainer}
+                    />
+                </View>
+                <Text style={styles.texto}>Mostrando Información en cuadrícula utilizando FlatList y numColumns</Text>
+                <Boton
+                    textoBoton='Ir a créditos'
+                    accionBoton={irPantalla2}
                 />
             </View>
-
-            <Text style={styles.texto}>Mostrando Informacion horizontal, utilizando el componente FlatList y la propiedad horizontal con valor true</Text>
-
-            <Boton
-            textoBoton='Ir a creditos'
-            accionBoton={irPantalla2}
-            />
-        </View>
+        </ScrollView>
     );
 };
 
 export default Pantalla1;
 
 const styles = StyleSheet.create({
+    scrollContainer: {
+        flexGrow: 1,
+        justifyContent: 'center',
+        alignItems: 'center',
+    },
     container: {
-        flex:1,
+        flex: 1,
         backgroundColor: '#FFF',
         alignItems: 'center',
         justifyContent: 'center',
         paddingTop: 20,
         marginTop: StatusBar.currentHeight || 20,
+        width: '100%',
     },
     flatListContainer: {
-        height: 160, // Altura fija para evitar el crecimiento automático
-        marginHorizontal:5
+        flex: 1,
+        width: '100%',
+    },
+    flatListContentContainer: {
+        alignItems: 'center',
     },
     cardContainer: {
         backgroundColor: '#fff',
@@ -59,8 +70,7 @@ const styles = StyleSheet.create({
         borderWidth: 1,
         borderColor: '#ccc',
         padding: 10,
-        marginBottom: 10,
-        marginHorizontal: 5,
+        margin: 5,
         shadowColor: '#000',
         shadowOffset: {
             width: 0,
@@ -69,18 +79,26 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.25,
         shadowRadius: 3.84,
         elevation: 5,
-        alignItems:'center'
+        alignItems: 'center',
+        flexBasis: '48%', // Para hacer que los elementos ocupen aproximadamente la mitad del espacio horizontal
     },
     image: {
         width: 100,
         height: 100,
         marginBottom: 10,
     },
-    title: {
+    itemTitle: {
         fontSize: 16,
         fontWeight: 'bold',
+        textAlign: 'center',
     },
-    texto:{
-        marginHorizontal:15
-    }
+    texto: {
+        marginHorizontal: 15,
+        textAlign: 'center',
+    },
+    title: {
+        fontSize: 20,
+        fontWeight: 'bold',
+        marginBottom: 20,
+    },
 });
